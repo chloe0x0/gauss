@@ -15,6 +15,12 @@ $$\int_a^bf(x)dx \approx \frac{b-a}{2N} \sum_{n=1}^{N}[f(x_n)+f(x_{n+1})]$$
 
 $$= \frac{b-a}{2N}[f(x_1) + 2f(x_2) + ... + 2f(x_{N-1}) + f(x_{N})]$$
 
+where $x_1 = a < x_2 < x_3 < ... < x_{N-1} < x_{N} = b$
+and the spacing between them is $\frac{(b - a)}{N}$
+
+if the spacing between the trapezoids is not a constant the rule is generalized as:
+$$\int_a^bf(x)dx \approx \frac{1}{2} \sum_{n=1}^{N}(x_{n+1} - x_n)[f(x_n)+f(x_{n+1})]$$
+
 ### Using TRAPZ.cpp
 ```cpp
 #include <iostream>
