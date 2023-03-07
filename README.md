@@ -38,6 +38,6 @@ double f(x) {
 int main(void) {
     // Trapezoidal approximation using 8 trapezoids
     double integral = TRAPZ(&f, 8, 1, 5);
-    std:cout << integral << std::endl;
+    std::cout << integral << std::endl;
 }
 ```
