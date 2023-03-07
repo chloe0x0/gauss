@@ -11,7 +11,7 @@ The Trapezoidal rule approximates the definite integral of a function f over an 
 
 Symbolically it is given as:
 
-$\int_a^bf(x)dx \approx \frac{b-a}{N}\sum_{n=1}^{N}[f(x_n)+f(x_{n+1})]$
+$\int_a^bf(x)dx \approx \frac{b-a}{N} \sum_{n=1}^{N} [f(x_n)+f(x_{n+1})]$
 
 $= \frac{b-a}{N}[f(x_1) + 2f(x_2) + ... + 2f(x_{N-1}) + f(x_{N})]$
 
