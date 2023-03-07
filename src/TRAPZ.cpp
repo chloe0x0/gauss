@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <iostream>
 #include <assert.h>
 
@@ -19,15 +18,4 @@ double TRAPZ(double (*f)(double), int trapz, double a, double b) {
     integral *= (b - a)/(2*trapz);
 
     return integral;
-}
-
-// f(x) = x^2
-double f(double x) {
-    return x*x;
-}
-
-int main(void) {
-    // compute the integral from 1 to 5 of x^2
-    double trapz = TRAPZ(&f, 8, 1, 5);
-    std::cout << trapz << std::endl;
 }
