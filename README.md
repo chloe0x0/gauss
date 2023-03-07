@@ -7,7 +7,7 @@ Currently for functions of x. (may add support for higher dimensional functions 
 CUMTRAPZ, Simpsons Rule (1/3, 3/8), Quadratures, Reimann Sums, Romberg Method.
 
 ## TRAPZ
-The Trapezoidal rule approximates the definite integral of a function f over an interval [a, b] by summing up the areas of N evenly spaced trapezoids.
+The Trapezoidal rule approximates the definite integral of a function f over an interval [a, b] by summing up the areas of N trapezoids.
 
 Symbolically it is given as:
 
@@ -20,6 +20,10 @@ and the spacing between them is $\frac{(b - a)}{N}$
 
 if the spacing between the trapezoids is not a constant the rule is generalized as:
 $$\int_a^bf(x)dx \approx \frac{1}{2} \sum_{n=1}^{N}(x_{n+1} - x_n)[f(x_n)+f(x_{n+1})]$$
+
+the C++ implementation uses a constant space of $\frac{(b - a)}{N}$
+
+this may be changed later.
 
 ### Using TRAPZ.cpp
 ```cpp
