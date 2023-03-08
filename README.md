@@ -115,7 +115,7 @@ int main(void) {
 this is equivalent to the MATLAB code
 
 ```MATLAB
-X = [1 4 9 16 25]
+X = [1 4 9 16 25];
 Q = trapz(X)
 ```
 
