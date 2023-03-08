@@ -1,5 +1,6 @@
 #include <iostream>
 #include <assert.h>
+#include <cmath>
 
 // Approximate the definite integral from a to b of f(x) via the Trapezoidal rule using N trapezoids
 double TRAPZ(double (*f)(double), int trapz, double a, double b) {
@@ -24,10 +25,10 @@ double TRAPZ(double (*f)(double), int trapz, double a, double b) {
 }
 
 double f(double x) {
-    return x*x;
+    return cbrt(sin(x + x)) / exp(x);
 }
 
 int main(void) {
-    double integral = TRAPZ(&f, 80000, 1, 5);
+    double integral = TRAPZ(&f, 25, -log(2.0), log(2.0));
     std::cout << integral << std::endl;
 }
