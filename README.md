@@ -80,10 +80,6 @@ and the spacing between them is $\frac{(b - a)}{N}$
 if the spacing between the trapezoids is not a constant the rule is generalized as:
 $$\int_a^bf(x)dx \approx \frac{1}{2} \sum_{n=1}^{N}(x_{n+1} - x_n)[f(x_n)+f(x_{n+1})]$$
 
-the C++ implementation uses a constant spacing of $\frac{(b - a)}{N}$
-
-this may be changed later.
-
 ### Using TRAPZ.cpp
 ```cpp
 #include <iostream>
