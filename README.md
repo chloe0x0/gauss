@@ -98,7 +98,7 @@ int main(void) {
 ```
 
 TRAPZ is overloaded to handle different types of inputs.
-If a set of points [a, f(x1), ..., b] is given with unit spacing
+If a set of points [f(a), f(x1), ..., f(b)] is given with unit spacing
 ```cpp
 int main(void) {
     std::vector<double> X = {1.0, 4.0, 9.0, 16.0, 25.0};
