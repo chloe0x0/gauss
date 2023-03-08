@@ -102,12 +102,7 @@ int main(void) {
 ```
 
 TRAPZ is overloaded to handle different types of inputs.
-If a set of points [a, f(x1), ..., b] is given with unit spacing TRAPZ becomes equivalent to the MATLAB code
-```MATLAB
-X = [1 4 9 16 25]
-Q = trapz(X)
-```
-
+If a set of points [a, f(x1), ..., b] is given with unit spacing
 ```cpp
 int main(void) {
     std::vector<double> X = {1.0, 4.0, 9.0, 16.0, 25.0};
@@ -117,7 +112,37 @@ int main(void) {
 }
 ```
 
-If one provides a domain vector (a vector of x coordinates), and a reference to a function TRAPZ becomes equivalent to the MATLAB code
+this is equivalent to the MATLAB code
+
+```MATLAB
+X = [1, 4, 9, 16, 25]
+Q = trapz(X)
+```
+
+
+If one provides a domain vector (a vector of x coordinates), and a reference to a function 
+
+```C++
+constexpr pi() { return 4*atan(1); }
+
+double f(double x) {
+    return sin(x);
+}
+
+int main(void) {
+    // [0, π] with a step size of π/100
+    std::vector<double> X;
+    X.reserve(101);
+    for (double x = 0.0; x < pi(); x += pi()/100.0) {
+        X.push_back(x);
+    }
+
+    double integral = TRAPZ(X, &f);
+    std::cout << integral << std::endl;
+}
+```
+
+the equivalent MATLAB code
 ```MATLAB
 X = 0:pi/100:pi;
 Y = sin(X);

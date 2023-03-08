@@ -1,6 +1,6 @@
 #include <iostream>
 #include <assert.h>
-#include <cmath>
+#include <math.h>
 #include <vector>
 #include <algorithm>
 
@@ -44,6 +44,7 @@ double TRAPZ(std::vector<double> pts) {
 // MATLAB equivalent: Q = trapz(X, y), where y = f(X)
 double TRAPZ(std::vector<double> X, double (*f)(double)) {
     std::vector<double> Y;
+    Y.resize(X.size());
     std::transform(X.begin(), X.end(), Y.begin(), f); // get function values
 
     double integral = 0.0;
@@ -61,6 +62,12 @@ double f(double x) {
     return cbrt(sin(x + x)) / exp(x);
 }
 
+constexpr double pi() { return 4*atan(1); }
+
+double f_(double x) {
+    return sin(x);
+}
+
 int main(void) {
     double integral = TRAPZ(&f, 25, -log(2.0), log(2.0));
     std::cout << integral << std::endl;
@@ -69,5 +76,11 @@ int main(void) {
     integral = TRAPZ(points);
     std::cout << integral << std::endl;
 
-
+    std::vector<double> X;
+    X.reserve(101);
+    for (double x = 0; x < pi(); x += pi() / 100.0) {
+        X.push_back(x);
+    }
+    integral = TRAPZ(X, &f_);
+    std::cout << integral << std::endl;
 }
