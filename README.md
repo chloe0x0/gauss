@@ -63,7 +63,7 @@ int main(void) {
 the integral is then approximately -0.46573.
 
 # TODO
-CUMTRAPZ, Simpsons Rule (1/3, 3/8), Quadratures, Reimann Sums, Romberg Method.
+Simpsons Rule (1/3, 3/8), Quadratures, Reimann Sums, Romberg Method.
 
 ## TRAPZ
 The Trapezoidal rule approximates the definite integral of a function f over an interval [a, b] by summing up the areas of N trapezoids.
