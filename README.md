@@ -1,8 +1,6 @@
 # gauss
 Numerical Integration algorithms implemented in C++
 
-Currently for functions of x. (may add support for higher dimensional functions later)
-
 ## Motivation
 Why would one wish to numerically compute an integral? 
 
