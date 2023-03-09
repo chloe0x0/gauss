@@ -12,6 +12,8 @@ double TRAPZ(std::vector<double>);
 // equivalent to MATLAB's Q = trapz(X, Y), where Y = f(X)
 double TRAPZ(std::vector<double>, double (*f)(double));
 // Compute the cummulative integral with the trapezoidal approximation
-double* CUMTRAPZ(double (*f)(double), int, double, double);
+std::vector<double> CUMTRAPZ(double (*f)(double), int, double, double);
+// Computes the cummulative integral of a discrete dataset with the trapezoidal approximation
+std::vector<double> CUMTRAPZ(std::vector<double>);
 
 #endif
