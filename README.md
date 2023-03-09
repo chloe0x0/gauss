@@ -74,8 +74,7 @@ $$\int_a^bf(x)dx \approx \frac{b-a}{2N} \sum_{n=1}^{N}[f(x_n)+f(x_{n+1})]$$
 
 $$= \frac{b-a}{2N}[f(x_1) + 2f(x_2) + ... + 2f(x_{N-1}) + f(x_{N})]$$
 
-where $x_1 = a < x_2 < x_3 < ... < x_{N-1} < x_{N} = b$
-and the spacing between them is $\frac{(b - a)}{N}$
+and the spacing between $x_i$ and $x_j$ is $\frac{(b - a)}{N}$
 
 if the spacing between the trapezoids is not a constant the rule is generalized as:
 $$\int_a^bf(x)dx \approx \frac{1}{2} \sum_{n=1}^{N}(x_{n+1} - x_n)[f(x_n)+f(x_{n+1})]$$
@@ -96,6 +95,8 @@ int main(void) {
     std::cout << integral << std::endl;
 }
 ```
+
+Sometimes it is desireable to integrate a discrete dataset.
 
 TRAPZ is overloaded to handle different types of inputs.
 If a set of points [f(a), f(x1), ..., f(b)] is given with unit spacing
@@ -144,3 +145,102 @@ X = 0:pi/100:pi;
 Y = sin(X);
 Q = trapz(X,Y)
 ```
+
+## CUMTRAPZ
+
+CUMTRAPZ computes the cumulative integral of f over the interval [a, b]
+ie: it returns a vector of integrals where the ith integral is 
+$$\int_a^if(x)dx$$
+and is numerically approximated with TRAPZ
+it is intended to function like MATLAB's cumtrapz function and is included in the TRAPZ.h header file
+
+CUMTRAPZ therefore supports integration over discrete datasets
+
+an example, computing the cumulative integral of 
+$$\int_1^5x^2dx$$
+
+```C++
+#include <TRAPZ.h>
+
+double f(double x) {
+    return x*x;
+}
+
+int main(void) {
+    std::vector<double> cums = CUMTRAPZ(&f, 15, 1, 5);
+    std::for_each(cums.begin(), cums.end(), [](const double& x){std::cout << x << " ";})
+}
+```
+
+```console
+>>> 0 2.33407 8.67259 21.02 41.3807 
+```
+
+to integrate over a discrete dataset
+
+```C++
+int main(void) {
+    // x^2 over [1, 5]
+    std::vector<double> X = {1, 4, 9, 16, 25};
+    std::vector<double> cums = CUMTRAPZ(X);
+    std::for_each(cums.begin(), cums.end(), [](const double& x){std::cout << x << " ";})
+}
+```
+
+```console
+>>> 0 2.5 9 21.5 42 
+```
+
+this is in agreement with the MATLAB code
+```MATLAB
+X = [1 4 9 16 25];
+Q = cumtrapz(X)
+```
+
+### A worked example
+To better illustrate how cumtrapz is used, consider the discrete dataset
+
+```MATLAB
+[0, .45, 1.79, 4.02, 7.15, 11.18, 16.09, 21.90, 29.05, 29.05, 29.05, 29.05, 29.05, 22.42, 
+17.9, 17.9, 17.9, 17.9, 14.34, 11.01, 8.9, 6.54, 2.03, 0.55, 0]
+```
+this data represents the velocity in meters per second of a particularly fast cat.
+It looks like this: 
+```python
+import matplotlib.pyplot as plt
+s = [0, .45, 1.79, 4.02, 7.15, 11.18, 16.09, 21.90, 29.05, 29.05, 29.05, 29.05, 29.05, 22.42, 17.9, 17.9, 17.9, 17.9, 14.34, 11.01, 8.9, 6.54, 2.03, 0.55, 0]
+plt.plot(s)
+plt.xlabel('time (seconds)')
+plt.ylabel('velocity (meters)')
+plt.show()
+```
+![](imgs/Figure_1.png)
+
+To find the total distance traveled by the cat after 24 seconds we can use a Trapezoidal approximation.
+```C++
+#include <TRAPZ.h>
+
+static std::vector<double> dataset = {0, .45, 1.79, 4.02, 7.15, 11.18, 16.09, 21.90, 29.05, 29.05, 29.05, 29.05, 29.05, 22.42, 17.9, 17.9, 17.9, 17.9, 14.34, 11.01, 8.9, 6.54, 2.03, 0.55, 0};
+
+int main(void) {
+    double distance = TRAPZ(dataset);
+    std::cout << "The distance traveled by the cat from 0 seconds to 24 seconds is: " << distance << " meters";
+}
+```
+
+```console
+>>> The distance traveled by the cat from 0 seconds to 24 seconds is: 345.22 meters
+```
+
+But what is the cumulative distance traveled? Simply use CUMTRAPZ.
+
+```C++
+std::vector<double> cums = CUMTRAPZ(dataset);
+``` 
+
+as a matter of interest, here is the cumulative distance plotted in Python using matplotlib
+
+![](imgs/Figure_2.png)
+
+* The data was, in reality, about a car. It is more interesting if it is a cat. 
+    * the data is taken from [this MATLAB tutorial on Integrating Discrete Datasets](https://www.mathworks.com/help/matlab/math/integration-of-numeric-data.html)

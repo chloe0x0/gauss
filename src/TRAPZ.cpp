@@ -4,22 +4,25 @@
 #include <vector>
 #include <algorithm>
 
+#define EPSILON 1E-3
+
 // Approximate the definite integral from a to b of f(x) via the Trapezoidal rule using N trapezoids
 double TRAPZ(double (*f)(double), int trapz, double a, double b) {
     if (a == b)
         return 0.0;
 
-    assert(a < b);
-
-    double interval, integral, coeff;
+    double interval, integral;
 
     interval = (b - a) / (double)trapz;
-    integral = 0.0;
+    integral = f(a);
 
-    for (double x_i = a; x_i <= b; x_i += interval) {
-        coeff = x_i == a || x_i == b ? 1.0 : 2.0;
-        integral += coeff * f(x_i);
+                        // x_i != b was being fucky (comparing floating point nums)
+                        // std::numeric_limits<double>::epsilon() doesnt work, using 1e-3 for now bc it doesnt have these issues
+    for (double x_i = a+interval; fabs(x_i - b) > EPSILON; x_i += interval) {
+        integral += 2.0 * f(x_i);
     }
+
+    integral += f(b);
 
     integral *= (b - a)/(2*trapz);
 
@@ -58,29 +61,46 @@ double TRAPZ(std::vector<double> X, double (*f)(double)) {
     return integral / 2.0;
 }
 
+// Compute the Cumulative Integral of f from a to b using N trapezoids
+std::vector<double> CUMTRAPZ(double (*f)(double), int trapz, double a, double b) {
+    std::vector<double> cums;
+    cums.reserve(std::abs(b - a));
+
+    // since inc is -1 | 1 we dont need any epsilon check for equality
+    // this is because precision wont be an issue and std::numeric_limits<double>::epsilon() should be enough
+    double inc = b > a ? 1 : -1;
+    for (double b_ = a; b_ != b+inc; b_+=inc) {
+        cums.push_back(TRAPZ(f, trapz, a, b_));
+    }
+
+    return cums;
+}
+
+// Compute the Cumulative Integral via the trapezoidal method given a set of function values (with unit spacing)
+std::vector<double> CUMTRAPZ(std::vector<double> X) {
+    std::vector<double> cums;
+    cums.reserve(X.size());
+
+    double cum;
+    for (int i = X.size() - 1; i >= 0; i--) {
+        cum = TRAPZ(std::vector<double>(X.begin(), X.end() - i));
+        cums.push_back(cum);
+    }
+
+    return cums;
+}
+
 double f(double x) {
-    return cbrt(sin(x + x)) / exp(x);
+    return x*x;
 }
 
-constexpr double pi() { return 4*atan(1); }
-
-double f_(double x) {
-    return sin(x);
-}
+static std::vector<double> dataset = {0, .45, 1.79, 4.02, 7.15, 11.18, 16.09, 21.90, 29.05, 29.05, 29.05, 29.05, 29.05, 22.42, 17.9, 17.9, 17.9, 17.9, 14.34, 11.01, 8.9, 6.54, 2.03, 0.55, 0};
 
 int main(void) {
-    double integral = TRAPZ(&f, 25, -log(2.0), log(2.0));
-    std::cout << integral << std::endl;
-
-    std::vector<double> points = {1.0, 4.0, 9.0, 16.0, 25.0};
-    integral = TRAPZ(points);
-    std::cout << integral << std::endl;
-
-    std::vector<double> X;
-    X.reserve(101);
-    for (double x = 0; x < pi(); x += pi() / 100.0) {
-        X.push_back(x);
+    std::vector<double> distance = CUMTRAPZ(dataset);
+    std::cout << "[";
+    for (double cum : distance) {
+        std::cout << cum << " ,";
     }
-    integral = TRAPZ(X, &f_);
-    std::cout << integral << std::endl;
+    std::cout << "]";
 }
