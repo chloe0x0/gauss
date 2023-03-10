@@ -89,18 +89,3 @@ std::vector<double> CUMTRAPZ(std::vector<double> X) {
 
     return cums;
 }
-
-double f(double x) {
-    return x*x;
-}
-
-static std::vector<double> dataset = {0, .45, 1.79, 4.02, 7.15, 11.18, 16.09, 21.90, 29.05, 29.05, 29.05, 29.05, 29.05, 22.42, 17.9, 17.9, 17.9, 17.9, 14.34, 11.01, 8.9, 6.54, 2.03, 0.55, 0};
-
-int main(void) {
-    std::vector<double> distance = CUMTRAPZ(dataset);
-    std::cout << "[";
-    for (double cum : distance) {
-        std::cout << cum << " ,";
-    }
-    std::cout << "]";
-}

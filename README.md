@@ -1,6 +1,8 @@
 # gauss
 Numerical Integration algorithms implemented in C++
 
+Currently supports integration over discrete datasets as well as integration given a reference to a function.
+
 ## Motivation
 Why would one wish to numerically compute an integral? 
 
