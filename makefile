@@ -1,17 +1,16 @@
 CC = g++
 CFLAGS = -Wall -Wextra -O2
-CLEAN = del # rm on linux
+CLEAN = del # rm on linux 
+OBJS = main.o TRAPZ.o
 
-OBJS = TRAPZ.o
-
-TRAPZ.o: src/TRAPZ.cpp
+TRAPZ.o: src/TRAPZ.cpp src/TRAPZ.h
 	$(CC) $(CFLAGS) -c src/TRAPZ.cpp -o TRAPZ.o
 
-gauss.o: $(OBJS)
-	$(CC) $(CFLAGS) -c $(OBJS) -o gauss.o
+main.o: src/main.cpp src/TRAPZ.h
+	$(CC) $(CFLAGS) -c src/main.cpp -o main.o
 
-main: gauss.o main.cpp
-	$(CC) $(CFLAGS) gauss.o -o main 
+main: $(OBJS):
+	$(CC) $(CFLAGS) $(OBJS) -o main
 
 clean:
-	$(CLEAN) *.o 
+	$(CLEAN) *.o

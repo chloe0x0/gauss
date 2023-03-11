@@ -50,12 +50,12 @@ double f(double x) {
 For an approximation using gauss
 
 ```C++
-#include <TRAPZ.h>
+#include <trapz.h>
 
 // f is assumed to be already defined elsewhere as the above function
 
 int main(void) {
-    double integral = TRAPZ(&f, 25, -log(2.0), log(2.0));
+    double integral = trapz(&f, 25, -log(2.0), log(2.0));
     std::cout << integral << std::endl;
 }
 ```
@@ -65,7 +65,7 @@ the integral is then approximately -0.46573.
 # TODO
 Simpsons Rule (1/3, 3/8), Quadratures, Reimann Sums, Romberg Method.
 
-## TRAPZ
+## trapz
 The Trapezoidal rule approximates the definite integral of a function f over an interval [a, b] by summing up the areas of N trapezoids.
 
 Symbolically it is given as:
@@ -79,10 +79,10 @@ and the spacing between $x_i$ and $x_j$ is $\frac{(b - a)}{N}$
 if the spacing between the trapezoids is not a constant the rule is generalized as:
 $$\int_a^bf(x)dx \approx \frac{1}{2} \sum_{n=1}^{N}(x_{n+1} - x_n)[f(x_n)+f(x_{n+1})]$$
 
-### Using TRAPZ.cpp
+### Using trapz.cpp
 ```cpp
 #include <iostream>
-#include <TRAPZ.h>
+#include <trapz.h>
 
 // Integrate x^2 from 1 to 5 (exact result is 41 * 1/3)
 double f(x) {
@@ -91,19 +91,19 @@ double f(x) {
 
 int main(void) {
     // Trapezoidal approximation using 8 trapezoids
-    double integral = TRAPZ(&f, 8, 1, 5);
+    double integral = trapz(&f, 8, 1, 5);
     std::cout << integral << std::endl;
 }
 ```
 
 Sometimes it is desireable to integrate a discrete dataset.
 
-TRAPZ is overloaded to handle different types of inputs.
+trapz is overloaded to handle different types of inputs.
 If a set of points [f(a), f(x1), ..., f(b)] is given with unit spacing
 ```cpp
 int main(void) {
     std::vector<double> X = {1.0, 4.0, 9.0, 16.0, 25.0};
-    double integral = TRAPZ(X);
+    double integral = trapz(X);
 
     std::cout << integral << std::endl;
 }
@@ -134,7 +134,7 @@ int main(void) {
         X.push_back(x);
     }
 
-    double integral = TRAPZ(X, &f);
+    double integral = trapz(X, &f);
     std::cout << integral << std::endl;
 }
 ```
@@ -146,28 +146,28 @@ Y = sin(X);
 Q = trapz(X,Y)
 ```
 
-## CUMTRAPZ
+## cumtrapz
 
-CUMTRAPZ computes the cumulative integral of f over the interval [a, b]
+cumtrapz computes the cumulative integral of f over the interval [a, b]
 ie: it returns a vector of integrals where the ith integral is 
 $$\int_a^if(x)dx$$
-and is numerically approximated with TRAPZ
-it is intended to function like MATLAB's cumtrapz function and is included in the TRAPZ.h header file
+and is numerically approximated with trapz
+it is intended to function like MATLAB's cumtrapz function and is included in the trapz.h header file
 
-CUMTRAPZ therefore supports integration over discrete datasets
+cumtrapz therefore supports integration over discrete datasets
 
 an example, computing the cumulative integral of 
 $$\int_1^5x^2dx$$
 
 ```C++
-#include <TRAPZ.h>
+#include <trapz.h>
 
 double f(double x) {
     return x*x;
 }
 
 int main(void) {
-    std::vector<double> cums = CUMTRAPZ(&f, 15, 1, 5);
+    std::vector<double> cums = cumtrapz(&f, 15, 1, 5);
     std::for_each(cums.begin(), cums.end(), [](const double& x){std::cout << x << " ";})
 }
 ```
@@ -182,7 +182,7 @@ to integrate over a discrete dataset
 int main(void) {
     // x^2 over [1, 5]
     std::vector<double> X = {1, 4, 9, 16, 25};
-    std::vector<double> cums = CUMTRAPZ(X);
+    std::vector<double> cums = cumtrapz(X);
     std::for_each(cums.begin(), cums.end(), [](const double& x){std::cout << x << " ";})
 }
 ```
@@ -218,12 +218,12 @@ plt.show()
 
 To find the total distance traveled by the cat after 24 seconds we can use a Trapezoidal approximation.
 ```C++
-#include <TRAPZ.h>
+#include <trapz.h>
 
 static std::vector<double> dataset = {0, .45, 1.79, 4.02, 7.15, 11.18, 16.09, 21.90, 29.05, 29.05, 29.05, 29.05, 29.05, 22.42, 17.9, 17.9, 17.9, 17.9, 14.34, 11.01, 8.9, 6.54, 2.03, 0.55, 0};
 
 int main(void) {
-    double distance = TRAPZ(dataset);
+    double distance = trapz(dataset);
     std::cout << "The distance traveled by the cat from 0 seconds to 24 seconds is: " << distance << " meters";
 }
 ```
@@ -232,10 +232,10 @@ int main(void) {
 >>> The distance traveled by the cat from 0 seconds to 24 seconds is: 345.22 meters
 ```
 
-But what is the cumulative distance traveled? Simply use CUMTRAPZ.
+But what is the cumulative distance traveled? Simply use cumtrapz.
 
 ```C++
-std::vector<double> cums = CUMTRAPZ(dataset);
+std::vector<double> cums = cumtrapz(dataset);
 ``` 
 
 as a matter of interest, here is the cumulative distance plotted in Python using matplotlib
