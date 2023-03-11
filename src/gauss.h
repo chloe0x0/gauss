@@ -2,6 +2,6 @@
 #define GAUSS_H
 
 // Trapezoidal numerical integration methods: TRAPZ, CUMTRAPZ
-#include "TRAPZ.h"
+#include "trapz.h"
 
 #endif
