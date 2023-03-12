@@ -8,16 +8,13 @@
 
 // Approximate the definite integral from a to b of f(x) via the Trapezoidal rule using N trapezoids
 double trapz(double (*f)(double), int trapz, double a, double b) {
-    if (a == b)
-        return 0.0;
-
     double interval, integral;
 
     interval = (b - a) / (double)trapz;
     integral = f(a);
 
-                        // x_i != b was being fucky (comparing floating point nums)
-                        // std::numeric_limits<double>::epsilon() doesnt work, using 1e-3 for now bc it doesnt have these issues
+   // x_i != b was being fucky (comparing floating point nums)
+   // std::numeric_limits<double>::epsilon() doesnt work, using 1e-3 for now bc it doesnt have these issues
     for (double x_i = a+interval; fabs(x_i - b) > EPSILON; x_i += interval) {
         integral += 2.0 * f(x_i);
     }
