@@ -7,7 +7,7 @@ The library intends to have similar numerical integration functions to MATLAB. I
 
 ### What is currently implemented
 
-* Reimann Sums (Left, Right, and Midpoint)
+* Riemann Sums (Left, Right, and Midpoint)
 
 * Trapezoidal Rule (and the Cumulative Trapezoidal Rule for cumulative integration)
 
@@ -77,7 +77,7 @@ int main(void) {
 the integral is then approximately -0.46573.
 
 # TODO
-Simpsons Rule (1/3, 3/8), Quadratures, Reimann Sums, Romberg Method.
+Simpsons Rule (1/3, 3/8), Quadratures, Riemann Sums, Romberg Method.
 
 ## trapz
 The Trapezoidal rule approximates the definite integral of a function f over an interval [a, b] by summing up the areas of N trapezoids.
