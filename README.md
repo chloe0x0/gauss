@@ -3,6 +3,18 @@ Numerical Integration algorithms implemented in C++
 
 Currently supports integration over discrete datasets as well as integration given a reference to a function.
 
+The library intends to have similar numerical integration functions to MATLAB. It can be used almost identically to MATLAB, just in C++.
+
+### What is currently implemented
+
+* Reimann Sums (Left, Right, and Midpoint)
+
+* Trapezoidal Rule (and the Cumulative Trapezoidal Rule for cumulative integration)
+
+* Simpson's Rule(s) (1/3, 3/8)
+
+* Romberg's Method
+
 ## Motivation
 Why would one wish to numerically compute an integral? 
 
@@ -10,7 +22,9 @@ Why would one wish to numerically compute an integral?
 
 * It would be very difficult to write a program to attempt to integrate like a human does
 
-* Related to the above reason, it is generally faster to numerically solve integrals (for a computer)
+* Computational Speed
+
+* May be given a dataset rather than an explicit integrand.
 
 ### An example
 
