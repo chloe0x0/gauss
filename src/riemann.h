@@ -1,13 +1,13 @@
 #ifndef RIEMANN_H
 #define RIEMANN_H
 
-// Reimann Sum approximations to definite integrals
+// Riemann Sum approximations to definite integrals
 
-// Left Reimann Sum 
+// Left Riemann Sum 
 double lrie(double (*f)(double), int, double, double);
-// Right Reimann Sum 
+// Right Riemann Sum 
 double rrie(double (*f)(double), int, double, double);
-// Midpoint Rule (Middle Reimann Sum)
+// Midpoint Rule (Middle Riemann Sum)
 double mrie(double (*f)(double), int, double, double);
 
 #endif
