@@ -3,8 +3,6 @@
 
 // Right Riemann Sum of f over [a, b] with N Riemann Boxes
 double rrie(double (*f)(double), int N, double a, double b) {
-    assert(b > a);
-
     double integral, interval;
     integral = 0.0;
     interval = (b - a) / (double)N;
@@ -22,8 +20,6 @@ double rrie(double (*f)(double), int N, double a, double b) {
 
 // Left Riemann Sum of f over [a, b] with N Riemann Boxes
 double lrie(double (*f)(double), int N, double a, double b) {
-    assert(b > a);
-
     double integral, interval;
     integral = 0.0;
     interval = (b - a) / (double)N;
@@ -41,8 +37,6 @@ double lrie(double (*f)(double), int N, double a, double b) {
 
 // Midpoint Rule approximation of f over [a, b] with N Riemann Boxes
 double mrie(double (*f)(double), int N, double a, double b) {
-    assert(b > a);
-
     double integral, interval;
     integral = 0.0;
     interval = (b - a) / (double)N;
@@ -58,8 +52,6 @@ double mrie(double (*f)(double), int N, double a, double b) {
     return integral;
 }
 
-
-
 double f(double x) {
     return x*x;
 }
@@ -70,6 +62,9 @@ int main(void) {
     integral = lrie(&f, 100, 1, 5);
     std::cout << integral << std::endl;
     integral = mrie(&f, 100, 1, 5);
+    std::cout << integral << std::endl;
+
+    integral = rrie(&f, 1000, 5, 1);
     std::cout << integral << std::endl;
 }
 
