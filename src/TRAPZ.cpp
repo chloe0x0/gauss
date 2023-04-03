@@ -3,6 +3,7 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
+#include "include/trapz.h"
 
 #define EPSILON 1E-3
 

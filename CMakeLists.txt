@@ -1,11 +1,21 @@
-add_library(${PROJECT_NAME} STATIC)
+cmake_minimum_required(VERSION 3.25)
 
-target_include_directories(${PROJECT_NAME}
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
+project(gauss)
+
+# Get source files
+file(GLOB SOURCES src/*.cpp)
+
+# Include Header files
+include_directories(include)
+
+# Create a shared library
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
+
+# Install the library
+install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})
+
+# Install lib headers
+file(GLOB HEADERS include/*.h)
+install(FILES ${HEADERS} DESTINATION include/${PROJECT_NAME})
 
 
