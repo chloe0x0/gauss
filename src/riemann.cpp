@@ -1,6 +1,6 @@
 #include <iostream>
 #include <assert.h>
-#include "include/riemann.h"
+#include "../include/riemann.h"
 
 // Right Riemann Sum of f over [a, b] with N Riemann Boxes
 double rrie(double (*f)(double), int N, double a, double b) {
