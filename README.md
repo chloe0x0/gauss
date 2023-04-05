@@ -7,13 +7,13 @@ The library intends to have similar numerical integration functions to MATLAB. I
 
 ### What is currently implemented
 
-* Riemann Sums (Left, Right, and Midpoint)
+* Riemann Sums (Left, Right, and Midpoint) (Composite)
 
-* Trapezoidal Rule (and the Cumulative Trapezoidal Rule for cumulative integration)
+* Trapezoidal Rule (Composite) (and the Cumulative Trapezoidal Rule for cumulative integration)
 
-* Simpson's Rule(s) (1/3, 3/8)
+* Simpson's Rule(s) (1/3, 3/8) (Composite)
 
-* Romberg's Method
+* Romberg's Method (TODO)
 
 ## Motivation
 Why would one wish to numerically compute an integral? 
@@ -64,8 +64,6 @@ double f(double x) {
 For an approximation using gauss
 
 ```C++
-#include <trapz.h>
-
 // f is assumed to be already defined elsewhere as the above function
 
 int main(void) {
@@ -78,6 +76,92 @@ the integral is then approximately -0.46573.
 
 # TODO
 Simpsons Rule (1/3, 3/8), Quadratures, Riemann Sums, Romberg Method.
+
+## Riemann Summations
+The Riemann sum approximates the definite integral of a function f over an interval [a, b] by summing up the areas of N rectangles
+
+In general, for a partition of [a, b], $P = (x_0, x_1, x_2, ... , x_N)$    
+
+where $x_0=a, x_N=b$
+and $x_0 < x_1 < x_2 < ... < x_{N-1} < x_N$
+
+The Riemann sum approximation is given as
+$$\int_a^bf(x)dx \approx \sum_0^Nf(x_i^*)\Delta x_i$$
+
+where $x_i^* \in [x_{i-1}, x_i]$
+and $\Delta x_i$ is given as $x_i - x_{i-1}$
+
+What differentiates the different Riemann Summation rules is the choices of $x_i^*$ 
+
+### Riemann Sum implementations
+Using the right Riemann sum is easy
+```cpp
+double f(double x) {
+    return x*x;
+}
+
+int main(void) {
+    // given a reference to a function
+    // integrate x^2 from 1 to 5 using 25 Riemann boxes with the Right Riemann Sum
+    double right_riemann = rrie(&f, 25, 1, 5);
+}
+```
+
+The left Riemann Sum and MidPoint Rule are also implemented, below are the function signatures
+
+```cpp
+// Midpoint Rule (Middle Riemann Sum)
+//               f(x)             N     a        b
+double mrie(double (*f)(double), int, double, double);
+// Left Riemann Sum 
+double lrie(double (*f)(double), int, double, double);
+```
+
+the usage is identical to rrie();
+
+## Simpson's Rule
+Simpson's $\frac{1}{3}$ and $\frac{3}{8}$ Rules are implemented for integration functions
+
+Simpson's Composite one third rule approximates the definite integral by summing up the areas of N quadratic interpolants. Symbolically it is given as
+
+$$\int_a^bf(x)dx \approx \frac{h}{3} * [f(a) + 4f(x_1) + 2f(x_2) + 4f(x_3) + ... + 4f(x_{N-1}) + f(b)]$$
+where
+$$h = \frac{b - a}{N}$$
+$$x_i = a + i*h$$
+and N is an even integer
+
+<p align="center">
+    <img src="imgs/Simpsons13.gif">
+</p>
+
+### Usage
+```cpp
+double f(double x) {
+    return x*x;
+}
+
+int main(void) {
+    double integral = simp13(&f, 24, 1, 5);
+}
+```
+(Note: if the argument N is a non-even integer there will be an Assertion Error)
+
+### Simpson's 3/8ths rule
+
+Simpson's 3/8ths rule uses cubic interpolants rather than quadratic ones.
+Symbolically it is
+$$\int_a^bf(x)dx \approx \frac{3}{8}h*[f(a) + 3f(x_1) + 3f(x_2) + 2f(x_3) + ... + 2f(x_{N-3}) + 3f(x_{N-2}) + 3f(x_{N - 1}) + f(b)]$$
+
+#### Usage
+```cpp
+double f(double x) {
+    return x*x;
+}
+
+int main(void) {
+    double integral = simp38(&f, 24, 1, 5);
+}
+```
 
 ## trapz
 The Trapezoidal rule approximates the definite integral of a function f over an interval [a, b] by summing up the areas of N trapezoids.

@@ -24,8 +24,16 @@ double simp13(double (*f)(double), int N, double a, double b) {
 double simp38(double (*f)(double), int N, double a, double b) {
     assert(N % 2 == 0);
 
-    double integral = 0.0;
+    double integral = f(a);
+    double interval = (b - a) / N;
 
+    for (int i = 1; i <= N; i++) {
+        double x_i = a + i*interval;
+        double coef = (i % 3 == 0) ? 2.0 : 3.0;
+        integral += f(x_i) * coef;
+    }
 
-    return integral;
+    integral += f(b);
+
+    return integral * ((3.0*interval)/8.0);
 }
