@@ -74,9 +74,6 @@ int main(void) {
 
 the integral is then approximately -0.46573.
 
-# TODO
-Simpsons Rule (1/3, 3/8), Quadratures, Riemann Sums, Romberg Method.
-
 ## Riemann Summations
 The Riemann sum approximates the definite integral of a function f over an interval [a, b] by summing up the areas of N rectangles
 
@@ -243,6 +240,27 @@ X = 0:pi/100:pi;
 Y = sin(X);
 Q = trapz(X,Y)
 ```
+
+## Romberg Integration
+Perhaps the most powerful numerical quadrature algorithm implemented so far. Using it is simple
+
+### Example usage
+Approximating the Gaussian integral from 0 to 1
+$$\int_0^1e^{-x^2}dx$$
+
+```C++
+double f(double x) {
+    return exp(-(x*x));
+}
+
+int main(void) {
+    double integral = romb(&f, 10, 0.00001, 0, 1);
+    std::cout << integral;
+}
+```
+
+which produces 0.746824, which is an approximation of the order of $O(h^6)$ (3 steps are used)
+in general, for $J$ steps Romberg Integration produces an approximation of the order of $O(2J)$
 
 ## cumtrapz
 

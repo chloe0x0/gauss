@@ -4,6 +4,8 @@
 #include <algorithm>
 #include "../include/romberg.h"
 
+#define PRINT_ROW false
+
 void printVec(std::vector<double> v, int j) {
     for (int i = 0; i < j - 1; i++) {
         std::cout << v.at(i) << " ";
@@ -41,8 +43,10 @@ double romb(double (*f)(double), int steps, double epsilon, double a, double b) 
             power = pow(4, i);
             R1[i] = (power*R1[i-1] - R0[i-1]) / (power - 1);
         }
-
+    
+    #if PRINT_ROW
         printVec(R1, j);
+    #endif
 
         // check if the current best approximation R(j,j) is within some epsilon of R(j-1,j-1)
         if (fabs(R0[j-1] - R1[j]) <= epsilon) {
