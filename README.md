@@ -13,7 +13,7 @@ The library intends to have similar numerical integration functions to MATLAB. I
 
 * Simpson's Rule(s) (1/3, 3/8) (Composite)
 
-* Romberg's Method (TODO)
+* Romberg's Method
 
 ## Motivation
 Why would one wish to numerically compute an integral? 
