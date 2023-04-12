@@ -260,7 +260,7 @@ int main(void) {
 ```
 
 which produces 0.746824, which is an approximation of the order of $O(h^6)$ (3 steps are used)
-in general, for $J$ steps Romberg Integration produces an approximation of the order of $O(2J)$
+in general, for $R(n,m)$, the error is of the order of $O(h_n^{2m+2})$
 
 ## cumtrapz
 
