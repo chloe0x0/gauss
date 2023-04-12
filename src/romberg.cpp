@@ -60,11 +60,3 @@ double romb(double (*f)(double), int steps, double epsilon, double a, double b) 
     // the final approximation (Error of O(2*steps))
     return R0[steps - 1];
 }
-
-double f(double x) {
-    return exp(-(x*x));
-}
-
-int main(void) {
-    double integral = romb(&f, 10, 0.00001, 0, 1);
-}
