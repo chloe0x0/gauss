@@ -83,7 +83,7 @@ where $x_0=a, x_N=b$
 and $x_0 < x_1 < x_2 < ... < x_{N-1} < x_N$
 
 The Riemann sum approximation is given as
-$$\int_a^bf(x)dx \approx \sum_0^Nf(x_i^*)\Delta x_i$$
+$$\int_a^bf(x)dx \approx \sum_{i=0}^Nf(x_i^*)\Delta x_i$$
 
 where $x_i^* \in [x_{i-1}, x_i]$
 and $\Delta x_i$ is given as $x_i - x_{i-1}$
